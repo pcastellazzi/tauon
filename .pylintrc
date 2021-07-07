@@ -1,0 +1,11 @@
+[MASTER]
+disable = missing-docstring, too-few-public-methods
+good-names = _
+init-import = yes
+min-public-methods = 1
+
+[REPORTS]
+score = no
+
+[TYPECHECK]
+ignored-classes = Config

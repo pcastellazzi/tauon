@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "tauon"
+version = "0.8.0"
+description = "Command line argument parser"
+homepage = "https://github.com/pcastellazzi/tauon/"
+documentation = "https://github.com/pcastellazzi/tauon/"
+readme = "README.md"
+license = "MIT"
+
+authors = [
+    "Pablo Castellazzi <pablo.castellazzi@icloud.com>"
+]
+
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities",
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+bandit = "*"
+black = "*"
+isort = "*"
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+safety = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

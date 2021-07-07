@@ -1,0 +1,11 @@
+[run]
+branch = True
+
+[report]
+exclude_lines =
+  class CustomArgSpec
+  def get_func_name
+  pragma: no branch
+  pragma: no cover
+  continue
+  pass

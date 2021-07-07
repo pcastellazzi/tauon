@@ -1,0 +1,11 @@
+/.coverage
+/.pytest_cache
+/.venv
+/.tox
+/build
+/dist
+
+.DS_Store
+*.py[cod]
+__pycache__
+
