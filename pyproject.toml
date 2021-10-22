@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tauon"
-version = "0.8.0"
+version = "0.9.0"
 description = "Command line argument parser"
 homepage = "https://github.com/pcastellazzi/tauon/"
 documentation = "https://github.com/pcastellazzi/tauon/"
@@ -21,7 +21,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
