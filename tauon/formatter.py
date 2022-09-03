@@ -64,7 +64,7 @@ class DefaultFormatter(Formatter):
         return inspect.getdoc(self.command.__class__)
 
     def get_default_label(self):
-        return re.sub("Command$", "", self.command.__class__.__name__).lower()
+        return re.sub(r"Command$", "", self.command.__class__.__name__).lower()
 
     def get_default_usage(self):
         usage = f"{self.config.usage_label}: {self.command.get_label()}"
@@ -106,9 +106,7 @@ class DefaultFormatter(Formatter):
             return None
 
         text = [f"{title}:"]
-        for action in actions:
-            text.append(self.get_action_description(action))
-
+        text.extend(self.get_action_description(action) for action in actions)
         return text
 
     def get_action_description(self, method, ljust=40):
@@ -132,11 +130,9 @@ class DefaultFormatter(Formatter):
         return description  # noqa: R504
 
     def get_visible_actions(self, actions):
-        # pylint: disable=no-self-use
         visible_actions = [
             actions[key] for key in actions if not get_exposed_data(actions[key]).hidden
         ]
-
         return sorted(
             set(visible_actions), key=lambda action: get_exposed_data(action).aliases[0]
         )

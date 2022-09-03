@@ -3,7 +3,7 @@ import inspect
 
 from .util import Error
 
-__all__ = ["ExposedData", "expose", "get_exposed_data", "isexposed", "ExposeError"]
+__all__ = ["ExposedData", "expose", "get_exposed_data", "is_exposed", "ExposeError"]
 
 
 class CustomArgSpecError(Error):
@@ -115,5 +115,5 @@ def get_exposed_data(routine):
         raise ExposeError(f"`{name}` is not exposed") from exc
 
 
-def isexposed(routine):
+def is_exposed(routine):
     return hasattr(routine, MARK)

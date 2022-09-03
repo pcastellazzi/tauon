@@ -18,7 +18,7 @@ def get_config(instance):
     for parent in reversed(inspect.getmro(instance.__class__)):
         if hasattr(parent, "Config"):
             for key, value in parent.Config.__dict__.items():
-                if not key.startswith("_"):
+                if not key.startswith("_"):  # skip private variables
                     parameters[key] = value
 
     return Config(**parameters)

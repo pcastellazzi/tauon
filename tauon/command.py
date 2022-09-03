@@ -1,8 +1,8 @@
 import inspect
 
 from .argument_list import ArgumentList
-from .expose import expose, get_exposed_data, isexposed
-from .formatter import DefaultFormatter  # pylint: disable=deprecated-module
+from .expose import expose, get_exposed_data, is_exposed
+from .formatter import DefaultFormatter
 from .util import Error, get_config
 
 __all__ = ["Command", "CommandError"]
@@ -16,37 +16,13 @@ class Command:
     class Config:
         description = None
         formatter = DefaultFormatter
-        help = None  # noqa: A003
+        help = None
         subcommands = None
         label = None
         usage = None
 
-    def __init__(self):
-        self.config = get_config(self)
-        self.commands = {}
-        self.options = {}
-        self.scan_actions()
-        self.formatter = self.config.formatter(self)
-
-    def __call__(self, argv):
-        self.execute(argv)
-
-    def add_action(self, action):
-        for name in get_exposed_data(action).aliases:
-            if name.startswith("-"):
-                self.options[name] = action
-            else:
-                self.commands[name] = action
-
-    def add_subcommand(self, command):
-        @expose(command.get_label(), description=command.get_description()[0])
-        def action(*argv):
-            return command(list(argv))
-
-        self.commands[command.get_label()] = action
-
-    def dispatch(self, name, action, argv):
-        # pylint: disable=no-self-use
+    @staticmethod
+    def dispatch(name, action, argv):
         data = get_exposed_data(action)
         available = len(argv)
 
@@ -65,11 +41,35 @@ class Command:
 
         action(*args)
 
+    def __init__(self):
+        self.config = get_config(self)
+        self.commands = {}
+        self.options = {}
+        self.scan_actions()
+        self.formatter = self.config.formatter(self)
+
+    def __call__(self, argv):
+        self.execute(argv)
+
+    def add_action(self, action):
+        for name in get_exposed_data(action).aliases:
+            if ArgumentList.is_option(name):
+                self.options[name] = action
+            else:
+                self.commands[name] = action
+
+    def add_subcommand(self, command):
+        @expose(command.get_label(), description=command.get_description()[0])
+        def action(*argv):
+            return command(list(argv))
+
+        self.commands[command.get_label()] = action
+
     def execute(self, argv):
         args = ArgumentList(argv)
         while args:
             arg = args.pop(0)
-            if arg.startswith("-"):
+            if ArgumentList.is_option(arg):
                 if arg in self.options:
                     self.dispatch(arg, self.options[arg], args)
                 else:
@@ -98,7 +98,7 @@ class Command:
         return self.formatter.get_usage()
 
     def scan_actions(self):
-        for _, action in inspect.getmembers(self, predicate=isexposed):
+        for _, action in inspect.getmembers(self, predicate=is_exposed):
             self.add_action(action)
 
         if self.config.subcommands:
