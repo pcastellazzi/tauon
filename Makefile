@@ -28,13 +28,12 @@ check-code-quality:
 .PHONY: check-dependencies
 check-dependencies:
 	poetry run safety check --bare
+	trivy fs .
 
 
 .PHONY: install
 install:
 	poetry install
-	# workaround for safety 40291
-	poetry run python -m pip install --upgrade pip setuptools wheel
 
 
 .PHONY: test
