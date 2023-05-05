@@ -2,7 +2,7 @@ from textwrap import dedent
 
 from tauon import Command, expose
 
-__all__ = [
+__all__ = (
     "ExampleProgram0",
     "ExampleProgram1",
     "ExampleProgram2",
@@ -10,7 +10,7 @@ __all__ = [
     "ExampleProgram4",
     "ExampleProgram5",
     "ExampleProgram6",
-]
+)
 
 
 class ExampleProgram0(Command):
@@ -114,7 +114,7 @@ class ExampleProgram5(Command):
     )
 
     class Config:
-        subcommands = [ExampleProgram3()]
+        subcommands = (ExampleProgram3(),)
 
 
 class ExampleProgram6(Command):

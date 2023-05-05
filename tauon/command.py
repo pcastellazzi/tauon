@@ -1,11 +1,11 @@
-import inspect
+from inspect import getmembers
 
 from .argument_list import ArgumentList
 from .expose import expose, get_exposed_data, is_exposed
 from .formatter import DefaultFormatter
 from .util import Error, get_config
 
-__all__ = ["Command", "CommandError"]
+__all__ = ("Command", "CommandError")
 
 
 class CommandError(Error):
@@ -24,9 +24,8 @@ class Command:
     @staticmethod
     def dispatch(name, action, argv):
         data = get_exposed_data(action)
-        available = len(argv)
 
-        if available < data.require:
+        if (available := len(argv)) < data.require:
             raise CommandError(
                 f"Not enough arguments for `{name}`, expected `{data.require}` got `{available}`"
             )
@@ -98,7 +97,7 @@ class Command:
         return self.formatter.get_usage()
 
     def scan_actions(self):
-        for _, action in inspect.getmembers(self, predicate=is_exposed):
+        for _, action in getmembers(self, predicate=is_exposed):
             self.add_action(action)
 
         if self.config.subcommands:

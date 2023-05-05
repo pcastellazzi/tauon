@@ -6,7 +6,7 @@ from textwrap import dedent
 from .expose import get_exposed_data
 from .util import get_config
 
-__all__ = ["Formatter", "DefaultFormatter"]
+__all__ = ("Formatter", "DefaultFormatter")
 
 
 class Formatter(ABC):
@@ -127,7 +127,7 @@ class DefaultFormatter(Formatter):
         if data.description:
             description = description.ljust(ljust) + data.description
 
-        return description  # noqa: R504
+        return description
 
     def get_visible_actions(self, actions):
         visible_actions = [

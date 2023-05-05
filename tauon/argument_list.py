@@ -1,4 +1,4 @@
-__all__ = ["ArgumentList"]
+__all__ = ("ArgumentList",)
 
 ASSIGNMENT_SEPARATOR = "="
 LONG_OPTION_SEPARATOR = "--"
@@ -19,26 +19,20 @@ class ArgumentList(list):
     def _normalize(self, argv):
         for arg in argv:
             if arg.startswith(LONG_OPTION_SEPARATOR):
-                try:
-                    idx = arg.index(ASSIGNMENT_SEPARATOR)
-                except ValueError:
-                    self.append(arg)
-                else:
+                if (idx := arg.find(ASSIGNMENT_SEPARATOR)) > 0:
                     self.append(arg[:idx])
                     self.append(arg[idx + 1 :])
-            elif arg.startswith(SHORT_OPTION_SEPARATOR):
-                try:
-                    idx = arg.index(ASSIGNMENT_SEPARATOR)
-                except ValueError:
-                    options = arg[1:]
-                    value = None
                 else:
+                    self.append(arg)
+            elif arg.startswith(SHORT_OPTION_SEPARATOR):
+                if (idx := arg.find(ASSIGNMENT_SEPARATOR)) > 0:
                     options = arg[1:idx]
                     value = arg[idx + 1 :]
-
+                else:
+                    options = arg[1:]
+                    value = None
                 for option in options:
                     self.append(SHORT_OPTION_SEPARATOR + option)
-
                 if value is not None:
                     self.append(value)
             else:

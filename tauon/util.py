@@ -1,6 +1,6 @@
-import inspect
+from inspect import getmro
 
-__all__ = ["Error", "get_config"]
+__all__ = ("Error", "get_config")
 
 
 class Error(Exception):
@@ -15,7 +15,7 @@ class Config:
 def get_config(instance):
     parameters = {}
 
-    for parent in reversed(inspect.getmro(instance.__class__)):
+    for parent in reversed(getmro(instance.__class__)):
         if hasattr(parent, "Config"):
             for key, value in parent.Config.__dict__.items():
                 if not key.startswith("_"):  # skip private variables

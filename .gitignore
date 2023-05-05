@@ -1,4 +1,5 @@
 /.coverage
+/.ruff_cache
 /.pytest_cache
 /.venv
 /.tox
@@ -8,4 +9,3 @@
 .DS_Store
 *.py[cod]
 __pycache__
-

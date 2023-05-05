@@ -3,7 +3,7 @@ import inspect
 
 from .util import Error
 
-__all__ = ["ExposedData", "expose", "get_exposed_data", "is_exposed", "ExposeError"]
+__all__ = ("ExposedData", "expose", "get_exposed_data", "is_exposed", "ExposeError")
 
 
 class CustomArgSpecError(Error):
