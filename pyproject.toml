@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "tauon"
-version = "0.9.3"
 description = "Command line argument parser"
-homepage = "https://github.com/pcastellazzi/tauon/"
 documentation = "https://github.com/pcastellazzi/tauon/"
-readme = "README.md"
+homepage = "https://github.com/pcastellazzi/tauon/"
 license = "MIT"
+name = "tauon"
+readme = "README.md"
+version = "0.9.3"
 
 authors = ["Pablo Castellazzi <pablo.castellazzi@icloud.com>"]
 
@@ -25,9 +25,26 @@ python = "^3.10"
 black = "*"
 pytest = "*"
 pytest-cov = "*"
-safety = "*"
 ruff = "*"
+safety = "*"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.ruff]
+builtins = ["_"]
+
+[tool.ruff.lint]
+ignore = [
+    "ANN", # annotations (flake8-annotations)
+    "COM", # trailing commas (flake8-commas)
+    "D",   # documentation (pydocstyle)
+    "INP", # implicity namespaces (flake8-no-pep420)
+    "T20", # use of print (flake8-print)
+
+    "E501", # line too long
+    "S101", # use of assert
+
+]
+select = ["ALL"]
