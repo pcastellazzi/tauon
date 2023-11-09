@@ -15,12 +15,12 @@ check: check-code-format check-code-quality check-dependencies
 
 .PHONY: check-code-format
 check-code-format:
-	poetry run black --check --quiet $(PYTHON_CODE)
+	poetry run ruff format --check $(PYTHON_CODE)
 
 
 .PHONY: check-code-quality
 check-code-quality:
-	poetry run ruff check $(PYTHON_CODE)
+	poetry run ruff check --no-fix $(PYTHON_CODE)
 
 
 .PHONY: check-dependencies
@@ -36,4 +36,3 @@ install:
 .PHONY: test
 test:
 	poetry run py.test $(PYTEST_FLAGS)
-

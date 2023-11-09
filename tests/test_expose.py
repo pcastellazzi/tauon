@@ -1,6 +1,6 @@
-# pylint: disable=unused-argument
+# ruff: noqa: ARG001
 
-from pytest import raises
+import pytest
 
 from tauon.expose import ExposeError, expose, get_exposed_data
 
@@ -22,7 +22,7 @@ def test_invalid_functions():
     )
 
     for sample, expected in table:
-        with raises(ExposeError) as err:
+        with pytest.raises(ExposeError) as err:
             expose()(sample)
         assert str(err.value) == expected
 
@@ -44,7 +44,7 @@ def test_invalid_functions_py3():
     )
 
     for sample, expected in table:
-        with raises(ExposeError) as err:
+        with pytest.raises(ExposeError) as err:
             expose()(sample)
         assert str(err.value) == expected
 
@@ -126,6 +126,6 @@ def test_unexposed():
         pass
 
     expected = "`action` is not exposed"
-    with raises(ExposeError) as error:
+    with pytest.raises(ExposeError) as error:
         get_exposed_data(action)
     assert str(error.value) == expected

@@ -41,7 +41,8 @@ class CustomArgSpec:
             elif param.kind == param.VAR_POSITIONAL:
                 self.varargs = param.name
             else:
-                raise CustomArgSpecError(f"Unknown parameter kind: `{param.kind}`")
+                msg = f"Unknown parameter kind: `{param.kind}`"
+                raise CustomArgSpecError(msg)
 
 
 MARK = "_exposed_data"
@@ -80,14 +81,14 @@ class ExposedFunction:
 
         if spec.defaults:
             kwarg = spec.args[-len(spec.defaults)]
-            raise ExposeError(
-                f"No keyword argument allowed `{kwarg}` on `{routine.__name__}`"
-            )
+            msg = f"No keyword argument allowed `{kwarg}` on `{routine.__name__}`"
+            raise ExposeError(msg)
 
         if spec.keywords:
-            raise ExposeError(
+            msg = (
                 f"No keyword wildcard allowed `{spec.keywords}` on `{routine.__name__}`"
             )
+            raise ExposeError(msg)
 
         setattr(
             routine,
@@ -112,7 +113,8 @@ def get_exposed_data(routine):
         return getattr(routine, MARK)
     except AttributeError as exc:
         name = routine.__name__ if hasattr(routine, "__name__") else repr(routine)
-        raise ExposeError(f"`{name}` is not exposed") from exc
+        msg = f"`{name}` is not exposed"
+        raise ExposeError(msg) from exc
 
 
 def is_exposed(routine):

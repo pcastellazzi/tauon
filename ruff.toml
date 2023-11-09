@@ -1,8 +1,0 @@
-ignore = [
-  "E501", # skip "line too long", we use black
-]
-
-fix = true
-fixable = [
-  "I", # replace isort?
-]

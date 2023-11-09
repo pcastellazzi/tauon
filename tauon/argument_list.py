@@ -8,9 +8,7 @@ SHORT_OPTION_SEPARATOR = "-"
 class ArgumentList(list):
     @staticmethod
     def is_option(text):
-        return text.startswith(SHORT_OPTION_SEPARATOR) or text.startswith(
-            LONG_OPTION_SEPARATOR
-        )
+        return text.startswith((SHORT_OPTION_SEPARATOR, LONG_OPTION_SEPARATOR))
 
     def __init__(self, argv):
         super().__init__()

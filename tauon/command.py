@@ -16,7 +16,7 @@ class Command:
     class Config:
         description = None
         formatter = DefaultFormatter
-        help = None
+        help = None  # noqa: A003
         subcommands = None
         label = None
         usage = None
@@ -26,9 +26,9 @@ class Command:
         data = get_exposed_data(action)
 
         if (available := len(argv)) < data.require:
-            raise CommandError(
-                f"Not enough arguments for `{name}`, expected `{data.require}` got `{available}`"
-            )
+            msg = f"Not enough arguments for `{name}`, expected `{data.require}` got `{available}`"
+
+            raise CommandError(msg)
 
         if data.spec.varargs:
             args = argv[:]
@@ -72,17 +72,20 @@ class Command:
                 if arg in self.options:
                     self.dispatch(arg, self.options[arg], args)
                 else:
-                    raise CommandError(f"Unexpected option `{arg}`")
+                    msg = f"Unexpected option `{arg}`"
+                    raise CommandError(msg)
             else:
                 if arg in self.commands:
                     self.dispatch(arg, self.commands[arg], args)
                     break
-                raise CommandError(f"Unexpected command `{arg}`")
+                msg = f"Unexpected command `{arg}`"
+                raise CommandError(msg)
         else:
             if "default" in self.commands:
                 self.dispatch("default", self.commands["default"], [])
             else:
-                raise CommandError(f"Missing default action on `{self.get_label()}`")
+                msg = f"Missing default action on `{self.get_label()}`"
+                raise CommandError(msg)
 
     def get_description(self):
         return self.formatter.get_description()

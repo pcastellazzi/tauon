@@ -114,10 +114,7 @@ class DefaultFormatter(Formatter):
         args = " ".join(data.spec.args)
 
         if data.spec.varargs:
-            if args:
-                args = f"{args} *{data.spec.varargs}"
-            else:
-                args = f"*{data.spec.varargs}"
+            args = f"{args} *{data.spec.varargs}" if args else f"*{data.spec.varargs}"
 
         description = self.config.tab + self.config.separator.join(data.aliases)
 
