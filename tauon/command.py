@@ -16,7 +16,7 @@ class Command:
     class Config:
         description = None
         formatter = DefaultFormatter
-        help = None  # noqa: A003
+        help = None
         subcommands = None
         label = None
         usage = None

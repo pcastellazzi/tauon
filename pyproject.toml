@@ -9,7 +9,7 @@ homepage = "https://github.com/pcastellazzi/tauon/"
 license = "MIT"
 name = "tauon"
 readme = "README.md"
-version = "0.9.4"
+version = "0.9.5"
 
 authors = ["Pablo Castellazzi <pablo.castellazzi@icloud.com>"]
 
@@ -26,10 +26,10 @@ classifiers = [
 python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
+deptry = "*"
 pytest = "*"
 pytest-cov = "*"
 ruff = "*"
-safety = "*"
 
 [tool.ruff]
 builtins = ["_"]
@@ -50,4 +50,3 @@ ignore = [
     "ISC001", # conflics with the formatter
     "S101",   # use of assert
 ]
-

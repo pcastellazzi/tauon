@@ -47,7 +47,7 @@ class ExampleProgram2(Command):
     )
 
     @expose("-h", "--help")
-    def help(self):  # noqa: A003
+    def help(self):
         pass
 
 
@@ -98,7 +98,7 @@ class ExampleProgram4(Command):
     EXPECTED_DESCRIPTION = "banana"
 
     class Config:
-        help = "banana"  # noqa: A003
+        help = "banana"
         label = "banana"
         description = "banana"
 
